@@ -88,10 +88,12 @@ public class Calculator {
 					result.add(x);
 					x = stack.pop();
 				}
-			}else if(s.equals("("))
+			}
+			else if(s.equals("("))
 			{
 				stack.push(s);
-			}else
+			}
+			else
 			{
 				//character is neither operator nor ( 
 				result.add(s);
@@ -102,7 +104,7 @@ public class Calculator {
 			result.add(stack.pop());
 		}
 		return result;
-	}
+	}    
 
 	static boolean isOperator(String s)
 	{
