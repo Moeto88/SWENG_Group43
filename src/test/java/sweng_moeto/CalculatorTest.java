@@ -11,7 +11,7 @@ public class CalculatorTest {
 
 	@Test
 	public void testInfixToPostFix() {
-		String equation = "14*3-7*35+22-56+10";
+		String equation = "14*3-7*35+22-56+100";
 		String[] expectedResult = {"14", "3", "*", "7", "35", "*", "-", "22", "+", "56", "-", "100", "+"};
 		assertEquals(Arrays.toString(expectedResult), Calculator.infixToPostFix(equation).toString());
 	}
