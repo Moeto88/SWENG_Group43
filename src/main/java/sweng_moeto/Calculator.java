@@ -5,23 +5,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 
+
 public class Calculator {
-
-	static int precedence(String s){
-		switch (s)
-		{
-		case "+":
-		case "-":
-			return 1;
-		case "*":
-			return 2;
-		}
-		return -1;
-	}
-
-	static ArrayList<String> infixToPostFix(String expression){
+	
+	static ArrayList<String> makeArrayList(String equation) {
 		ArrayList<String> list = new ArrayList<String>();
-		String tmpStr = expression;
+		String tmpStr = equation;
 		boolean exit = false;
 
 		while(!exit)
@@ -64,7 +53,22 @@ public class Calculator {
 			}
 		}
 
+		return list;
+	}
 
+	static int precedence(String s){
+		switch (s)
+		{
+		case "+":
+		case "-":
+			return 1;
+		case "*":
+			return 2;
+		}
+		return -1;
+	}
+
+	static ArrayList<String> infixToPostFix(ArrayList<String> list){
 
 		ArrayList<String> result = new ArrayList<String>();
 		Stack<String> stack = new Stack<>();
@@ -104,7 +108,9 @@ public class Calculator {
 			result.add(stack.pop());
 		}
 		return result;
-	}    
+
+	}
+
 
 	static boolean isOperator(String s)
 	{
@@ -157,12 +163,72 @@ public class Calculator {
 		return postFix.pop();
 	}
 
+
+	private static boolean errorHandling(ArrayList<String> list) {
+		if(list.get(0).equals("+") || list.get(0).equals("-") || list.get(0).equals("*"))
+		{
+			return false;
+		}
+		else if(list.get(list.size() - 1).equals(""))
+		{
+			
+			return false;
+		}
+		else
+		{
+			for(int i = 0; i < list.size(); i++)
+			{
+				if(i % 2 == 0)
+				{
+					String num = list.get(i);
+					if(!num.matches("[0-9]+"))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					String symbol = list.get(i);
+					if(!symbol.matches("[\\+\\-\\*]"))
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
+	}
+
+
+	private static void printErrorMessage() {
+		System.out.println("You typed in an invalid expression.");
+	}
+
+
 	public static void main(String[] args) {
-		System.out.println("Please enter an equation you want to solve");
-		Scanner input = new Scanner(System.in);
-		String equation = input.nextLine();
-		ArrayList<String> postExpression = infixToPostFix(equation);
-		System.out.println("The answer is " + evaluatePostfix(postExpression));
+		boolean exit = false;
+		while(!exit)
+		{
+			System.out.println("Please enter an equation you want to solve (only addition, subtraction, and multiplication)");
+			Scanner input = new Scanner(System.in);
+			String equation = input.nextLine();
+			ArrayList<String> arr = makeArrayList(equation);
+
+			if(errorHandling(arr))
+			{
+				ArrayList<String> postExpression = infixToPostFix(arr);
+				System.out.println("The answer is " + evaluatePostfix(postExpression));
+				exit = true;
+				input.close();
+			}
+			else
+			{
+				printErrorMessage();
+			}
+		}
+
+
 	}
 
 }
