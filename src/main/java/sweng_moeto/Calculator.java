@@ -79,7 +79,7 @@ public class Calculator {
 			//check if char is operator
 			if(precedence(s)>0)
 			{
-				while(stack.isEmpty()==false && precedence(stack.peek())>=precedence(s))
+				while(stack.isEmpty() == false && precedence(stack.peek()) >= precedence(s))
 				{
 					result.add(stack.pop()) ;
 				}
@@ -103,7 +103,7 @@ public class Calculator {
 				result.add(s);
 			}
 		}
-		for (int i = 0; i <=stack.size() ; i++) 
+		for (int i = 0; i <= stack.size() ; i++) 
 		{
 			result.add(stack.pop());
 		}
@@ -171,7 +171,6 @@ public class Calculator {
 		}
 		else if(list.get(list.size() - 1).equals(""))
 		{
-			
 			return false;
 		}
 		else
@@ -197,7 +196,6 @@ public class Calculator {
 			}
 			return true;
 		}
-
 	}
 
 
